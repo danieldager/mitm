@@ -15,6 +15,9 @@ with open(filename, 'rb') as fp:
 
     for flow in reader.stream():
         url_string = flow.request.url
-        match = re.search("(?=google\\.com/search\\?q)", url_string)
+        match = re.search('(?=google\\.com/search\\?q)', url_string)
         if match:
-            print(url_string)
+            parsed_url = re.search('=(.*)&ie', url_string)
+            clean_url = parsed_url.group(1).replace('+', ' ')
+            print(clean_url)
+
